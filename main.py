@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import re
 from carsList import brands
+import time
+import random
 
 
 def brand_split(name):
@@ -86,7 +88,6 @@ session = get_session()
 
 response = session.get(url)
 cookies = response.cookies.get_dict()
-print('Статус-код сайта: ', response.status_code)
 html = response.text
 soup = BeautifulSoup(html, 'html.parser')
 print(soup.h1.text)
@@ -129,6 +130,7 @@ for page in range(1, int(pages) + 1):
                 'Цена': block.find('strong', class_=re.compile('styles-module-root-LIAav')).find('span').get_text(
                     strip=True).replace('\xa0', '').replace('₽', '')
             })
+    time.sleep(random.randint(5, 10))
 
 print(f'Найдено {len(data)} товаров')
 print(f'Простмотрено {pages} страниц')
