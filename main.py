@@ -92,6 +92,7 @@ soup = BeautifulSoup(html, 'html.parser')
 print(soup.h1.text)
 pagination = soup.find('div', class_='js-pages pagination-pagination-_FSNE').find_all('li')
 pages_all = pagination[-2].text
+print(f'Найдено {pages_all} страниц')
 pages = (input('Сколько страниц просматривать? '))
 if pages.lower() == 'все' or pages.lower() == 'all':
     pages = pages_all
@@ -129,8 +130,8 @@ for page in range(1, int(pages) + 1):
                     strip=True).replace('\xa0', '').replace('₽', '')
             })
 
-print('Всего товаров: ' + str(len(data)))
-print('Всего страниц: ' + str(pages))
+print(f'Найдено {len(data)} товаров')
+print(f'Простмотрено {pages} страниц')
 
 df = pd.DataFrame(data)
 df['Марка'] = df['Заголовок'].apply(brand_split)

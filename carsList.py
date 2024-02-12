@@ -32,6 +32,7 @@ session = get_session()
 
 response = session.get(url)
 cookies = response.cookies.get_dict()
+print('Статус-код сайта: ', response.status_code)
 html = response.text
 soup = BeautifulSoup(html, 'html.parser')
 brands = []
